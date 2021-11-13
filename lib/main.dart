@@ -1,7 +1,6 @@
 import 'package:abu_zaid/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
-
-import 'on_boarding/on_boarding.dart';
+import 'modules/on_board/on_boarding.dart';
 
 void main() {
   runApp(const MyApp());

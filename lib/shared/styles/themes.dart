@@ -1,10 +1,11 @@
+import 'package:abu_zaid/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 ThemeData lightTheme = ThemeData(
     // it is better to make every theme on separate :
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: defaultColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.deepOrange,
     ),
@@ -41,7 +42,7 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
     // it is better to make every theme on separate :
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: defaultColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.deepOrange,
     ),
