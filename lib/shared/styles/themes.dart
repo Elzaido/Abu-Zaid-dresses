@@ -7,7 +7,7 @@ ThemeData lightTheme = ThemeData(
     // it is better to make every theme on separate :
     primarySwatch: defaultColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.grey,
     ),
     appBarTheme: AppBarTheme(
         // for dealing with status bar i must make it as false :
@@ -44,7 +44,7 @@ ThemeData darkTheme = ThemeData(
     // it is better to make every theme on separate :
     primarySwatch: defaultColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.grey,
     ),
     appBarTheme: AppBarTheme(
         // for dealing with status bar i must make it as false :

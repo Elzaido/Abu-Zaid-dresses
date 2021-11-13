@@ -1,3 +1,4 @@
+import 'package:abu_zaid/modules/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -14,9 +15,14 @@ class BoardingModel {
 }
 
 // ignore: must_be_immutable
-class OnBoarding extends StatelessWidget {
+class OnBoarding extends StatefulWidget {
   OnBoarding({Key? key}) : super(key: key);
 
+  @override
+  State<OnBoarding> createState() => _OnBoardingState();
+}
+
+class _OnBoardingState extends State<OnBoarding> {
   List<BoardingModel> boarding = [
     BoardingModel(
         image: 'assets/images/onboard1.jpg', title: 'title 1', body: 'body 1'),
@@ -27,19 +33,46 @@ class OnBoarding extends StatelessWidget {
   ];
 
   var boardController = PageController();
-
+  bool? isLast;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      // delete brevios pages when i go to the next page:
+                      (Route<dynamic> route) => false);
+                },
+                child: Text('SKIP'))
+          ],
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              SizedBox(
+                height: 100,
+              ),
               Expanded(
                 child: PageView.builder(
                   physics: BouncingScrollPhysics(),
                   controller: boardController,
+                  onPageChanged: (int index) {
+                    // if the index equal the index of the last page then :
+                    if (index == boarding.length - 1) {
+                      setState(() {
+                        isLast = true;
+                      });
+                    } else {
+                      setState(() {
+                        isLast = false;
+                      });
+                    }
+                  },
                   itemBuilder: (context, index) => itemBuilder(boarding[index]),
                   itemCount: boarding.length,
                 ),
@@ -59,14 +92,24 @@ class OnBoarding extends StatelessWidget {
                   Spacer(),
                   FloatingActionButton(
                       onPressed: () {
-                        boardController.nextPage(
-                            duration: Duration(
-                              milliseconds: 750,
-                            ),
-                            curve: Curves.fastLinearToSlowEaseIn);
+                        if (isLast!) {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()),
+                              // delete brevios pages when i go to the next page:
+                              (Route<dynamic> route) => false);
+                        } else {
+                          boardController.nextPage(
+                              duration: Duration(
+                                milliseconds: 750,
+                              ),
+                              curve: Curves.fastLinearToSlowEaseIn);
+                        }
                       },
                       child: Icon(
                         Icons.arrow_forward_ios,
+                        color: Colors.white,
                       ))
                 ],
               )
