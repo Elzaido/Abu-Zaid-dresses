@@ -8,7 +8,7 @@ class OnBoarding extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        children: [Image(image: AssetImage(''))],
+        children: [Image(image: AssetImage('assets/images/onboard2.jpg'))],
       ),
     );
   }

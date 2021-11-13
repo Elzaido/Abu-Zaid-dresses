@@ -1,3 +1,4 @@
+import 'package:abu_zaid/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 
 import 'on_boarding/on_boarding.dart';
@@ -14,8 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: OnBoarding(),
       debugShowCheckedModeBanner: false,
-      // theme: ,
-      // darkTheme: ,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
     );
   }
 }
