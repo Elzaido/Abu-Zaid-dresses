@@ -8,10 +8,12 @@ class DioHelper {
 
   static init() {
     dio = Dio(BaseOptions(
-      baseUrl: 'https://newsapi.org/',
-      // even when we have a status error recieve :
-      receiveDataWhenStatusError: true,
-    ));
+        baseUrl: 'https://student.valuxapps.com/api/',
+        // even when we have a status error recieve :
+        receiveDataWhenStatusError: true,
+        headers: {
+          'Content-Type': 'application/json',
+        }));
   }
 
   static Future<Response> getData({
@@ -21,6 +23,18 @@ class DioHelper {
     return await dio.get(
       url,
       queryParameters: query,
+    );
+  }
+
+  static Future<Response> postData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic>? data,
+  }) async {
+    return await dio.post(
+      url,
+      queryParameters: query,
+      data: data,
     );
   }
 }
