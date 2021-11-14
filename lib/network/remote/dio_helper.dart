@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   // cuz i need to use an object for the functions :
-  static Dio dio = 1 as Dio;
+  static late Dio dio;
 
   static init() {
     dio = Dio(BaseOptions(

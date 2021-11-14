@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ Widget formField(
         required bool isScure,
         required String label,
         required Icon prefIcon,
+        ValueChanged<String>? onSubmit,
         required FormFieldValidator<String> validator,
         IconButton? suffButton}) =>
     TextFormField(
@@ -14,6 +17,7 @@ Widget formField(
       keyboardType: TextInputType.visiblePassword,
       obscureText: isScure,
       obscuringCharacter: '*',
+      onFieldSubmitted: onSubmit,
       decoration: InputDecoration(
           prefixIcon: prefIcon,
           suffixIcon: suffButton,
