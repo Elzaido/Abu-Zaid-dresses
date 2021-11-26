@@ -11,6 +11,7 @@ ThemeData lightTheme = ThemeData(
     ),
     appBarTheme: AppBarTheme(
         // for dealing with status bar i must make it as false :
+        // ignore: deprecated_member_use
         backwardsCompatibility: false,
         // for status bar :
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -48,6 +49,7 @@ ThemeData darkTheme = ThemeData(
     ),
     appBarTheme: AppBarTheme(
         // for dealing with status bar i must make it as false :
+        // ignore: deprecated_member_use
         backwardsCompatibility: false,
         // for status bar :
         systemOverlayStyle: SystemUiOverlayStyle(

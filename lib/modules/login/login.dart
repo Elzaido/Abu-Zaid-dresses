@@ -21,6 +21,9 @@ class LoginScreen extends StatelessWidget {
             return Scaffold(
                 body: Column(
               children: [
+                SizedBox(
+                  height: 30,
+                ),
                 Expanded(
                   child: Center(
                     child: SingleChildScrollView(

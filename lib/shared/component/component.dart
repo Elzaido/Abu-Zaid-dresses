@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:abu_zaid/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,4 +24,31 @@ Widget formField(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
           )),
+    );
+
+Widget itemBuilder(BoardingModel model) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image(image: AssetImage('${model.image}')),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          '${model.title}',
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          '${model.body}',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
     );
