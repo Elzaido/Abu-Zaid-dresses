@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_print
+
+import 'package:abu_zaid/models/shop_model.dart';
 import 'package:abu_zaid/modules/register/register.dart';
 import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/cubit/cubit.dart';
 import 'package:abu_zaid/shared/cubit/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -16,7 +20,29 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
         create: (BuildContext context) => LoginCubit(),
         child: BlocConsumer<LoginCubit, LoginState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is LoginSuccessState) {
+              if (state.loginModel.status!) {
+                Fluttertoast.showToast(
+                    msg: state.loginModel.message!,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 5,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                Fluttertoast.showToast(
+                    msg: state.loginModel.message!,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 5,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
+            }
+          },
           builder: (context, state) {
             return Scaffold(
                 body: Column(
