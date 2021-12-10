@@ -2,6 +2,8 @@
 
 import 'package:abu_zaid/models/shop_model.dart';
 import 'package:abu_zaid/modules/register/register.dart';
+import 'package:abu_zaid/modules/shop_layout/shop_layout.dart';
+import 'package:abu_zaid/network/local/cache_helper.dart';
 import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/cubit/cubit.dart';
 import 'package:abu_zaid/shared/cubit/state.dart';
@@ -23,23 +25,22 @@ class LoginScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is LoginSuccessState) {
               if (state.loginModel.status!) {
-                Fluttertoast.showToast(
-                    msg: state.loginModel.message!,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 5,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+                CacheHelper.saveDate(
+                        key: 'token', value: state.loginModel.data!.token)
+                    .then((value) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => ShopLayout()),
+                      // delete brevios pages when i go to the next page:
+                      (Route<dynamic> route) => false);
+                });
+                // defaultToast(
+                //     massage: state.loginModel.message!,
+                //     state: ToastStates.SUCCESS);
               } else {
-                Fluttertoast.showToast(
-                    msg: state.loginModel.message!,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 5,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+                defaultToast(
+                    massage: state.loginModel.message!,
+                    state: ToastStates.ERROR);
               }
             }
           },

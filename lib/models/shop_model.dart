@@ -1,5 +1,4 @@
 // الفكرة من المودل إني بدي أستقبل الداتا عليه
-
 class ShopLoginModel {
   bool? status;
   String? message;
