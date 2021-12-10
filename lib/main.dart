@@ -1,8 +1,11 @@
+import 'package:abu_zaid/shared/bloc_observer.dart';
 import 'package:abu_zaid/shared/styles/themes.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'modules/on_board/on_boarding.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 

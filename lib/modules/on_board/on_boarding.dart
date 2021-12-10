@@ -1,22 +1,12 @@
+import 'package:abu_zaid/models/models.dart';
 import 'package:abu_zaid/modules/login/login.dart';
+import 'package:abu_zaid/shared/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class BoardingModel {
-  String? image;
-  String? title;
-  String? body;
-
-  BoardingModel({
-    required this.image,
-    required this.title,
-    required this.body,
-  });
-}
-
 // ignore: must_be_immutable
 class OnBoarding extends StatefulWidget {
-  OnBoarding({Key? key}) : super(key: key);
+  const OnBoarding({Key? key}) : super(key: key);
 
   @override
   State<OnBoarding> createState() => _OnBoardingState();
@@ -33,7 +23,7 @@ class _OnBoardingState extends State<OnBoarding> {
   ];
 
   var boardController = PageController();
-  bool? isLast;
+  bool isLast = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +48,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 height: 100,
               ),
               Expanded(
+                // PageView means that i have many pages in one page :
                 child: PageView.builder(
                   physics: BouncingScrollPhysics(),
                   controller: boardController,
@@ -92,7 +83,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   Spacer(),
                   FloatingActionButton(
                       onPressed: () {
-                        if (isLast!) {
+                        if (isLast) {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -118,30 +109,3 @@ class _OnBoardingState extends State<OnBoarding> {
         ));
   }
 }
-
-Widget itemBuilder(BoardingModel model) => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image(image: AssetImage('${model.image}')),
-        SizedBox(
-          height: 30,
-        ),
-        Text(
-          '${model.title}',
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          '${model.body}',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        )
-      ],
-    );
