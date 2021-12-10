@@ -1,5 +1,6 @@
 import 'package:abu_zaid/modules/login/login.dart';
 import 'package:abu_zaid/network/local/cache_helper.dart';
+import 'package:abu_zaid/shared/component/component.dart';
 import 'package:flutter/material.dart';
 
 class ShopLayout extends StatelessWidget {
@@ -15,11 +16,7 @@ class ShopLayout extends StatelessWidget {
           onPressed: () {
             CacheHelper.removeData(key: 'token').then((value) {
               if (value) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                    // delete brevios pages when i go to the next page:
-                    (Route<dynamic> route) => false);
+                navigateAndFinish(context: context, widget: LoginScreen());
               }
             });
           },

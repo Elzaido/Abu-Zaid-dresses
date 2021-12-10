@@ -85,3 +85,10 @@ Color choosToastColor(ToastStates state) {
 
   return color;
 }
+
+void navigateAndFinish({required context, required Widget widget}) =>
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => widget),
+        // delete brevios pages when i go to the next page:
+        (Route<dynamic> route) => false);

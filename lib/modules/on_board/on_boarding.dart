@@ -26,11 +26,7 @@ class _OnBoardingState extends State<OnBoarding> {
   void submit() {
     CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) {
       if (value) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-            // delete brevios pages when i go to the next page:
-            (Route<dynamic> route) => false);
+        navigateAndFinish(context: context, widget: LoginScreen());
       }
     });
   }
