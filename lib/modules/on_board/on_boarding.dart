@@ -1,5 +1,6 @@
 import 'package:abu_zaid/models/models.dart';
 import 'package:abu_zaid/modules/login/login.dart';
+import 'package:abu_zaid/network/local/cache_helper.dart';
 import 'package:abu_zaid/shared/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -22,6 +23,18 @@ class _OnBoardingState extends State<OnBoarding> {
         image: 'assets/images/onboard3.png', title: 'title 3', body: 'body 3'),
   ];
 
+  void submit() {
+    CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            // delete brevios pages when i go to the next page:
+            (Route<dynamic> route) => false);
+      }
+    });
+  }
+
   var boardController = PageController();
   bool isLast = false;
   @override
@@ -31,11 +44,7 @@ class _OnBoardingState extends State<OnBoarding> {
           actions: [
             TextButton(
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                      // delete brevios pages when i go to the next page:
-                      (Route<dynamic> route) => false);
+                  submit();
                 },
                 child: Text('SKIP'))
           ],
@@ -84,12 +93,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   FloatingActionButton(
                       onPressed: () {
                         if (isLast) {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()),
-                              // delete brevios pages when i go to the next page:
-                              (Route<dynamic> route) => false);
+                          submit();
                         } else {
                           boardController.nextPage(
                               duration: Duration(
