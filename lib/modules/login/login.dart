@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:abu_zaid/models/shop_model.dart';
 import 'package:abu_zaid/modules/register/register.dart';
 import 'package:abu_zaid/modules/shop_layout/shop_layout.dart';
 import 'package:abu_zaid/network/local/cache_helper.dart';
@@ -9,7 +8,6 @@ import 'package:abu_zaid/shared/cubit/cubit.dart';
 import 'package:abu_zaid/shared/cubit/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
