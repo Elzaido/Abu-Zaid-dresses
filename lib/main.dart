@@ -3,6 +3,7 @@
 import 'package:abu_zaid/modules/login/login.dart';
 import 'package:abu_zaid/modules/shop_layout/shop_layout.dart';
 import 'package:abu_zaid/network/local/cache_helper.dart';
+import 'package:abu_zaid/network/remote/dio_helper.dart';
 import 'package:abu_zaid/shared/bloc_observer.dart';
 import 'package:abu_zaid/shared/styles/themes.dart';
 import 'package:bloc/bloc.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
   // this fucking line is so important :
   WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
   await CacheHelper.init();
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   String? token = CacheHelper.getData(key: 'token');

@@ -4,14 +4,18 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   // cuz i need to use an object for the functions :
-  static Dio dio = Dio(BaseOptions(
-      baseUrl: 'https://student.valuxapps.com/api/',
-      // even when we have a status error recieve :
-      receiveDataWhenStatusError: true,
-      headers: {
-        'lang': 'ar',
-        'Content-Type': 'application/json',
-      }));
+  static late Dio dio;
+
+  static init() {
+    dio = dio = Dio(BaseOptions(
+        baseUrl: 'https://student.valuxapps.com/api/',
+        // even when we have a status error recieve :
+        receiveDataWhenStatusError: true,
+        headers: {
+          'lang': 'ar',
+          'Content-Type': 'application/json',
+        }));
+  }
 
   static Future<Response> getData({
     required String url,

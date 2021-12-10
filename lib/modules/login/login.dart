@@ -26,11 +26,7 @@ class LoginScreen extends StatelessWidget {
                 CacheHelper.saveDate(
                         key: 'token', value: state.loginModel.data!.token)
                     .then((value) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => ShopLayout()),
-                      // delete brevios pages when i go to the next page:
-                      (Route<dynamic> route) => false);
+                  navigateAndFinish(context: context, widget: ShopLayout());
                 });
                 // defaultToast(
                 //     massage: state.loginModel.message!,
