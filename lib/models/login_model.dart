@@ -22,20 +22,7 @@ class UserData {
   int? credit;
   String? token;
 
-// not used for now :
-
-  // UserData({
-  //   this.id,
-  //   this.credit,
-  //   this.email,
-  //   this.image,
-  //   this.name,
-  //   this.phone,
-  //   this.points,
-  //   this.token,
-  // });
-
-// a named constructor :
+// a named constructor used to get the data from APIs :
 
   UserData.fromJason(Map<String, dynamic> json) {
     id = json['id'];

@@ -1,7 +1,7 @@
-import 'package:abu_zaid/models/shop_model.dart';
+import 'package:abu_zaid/models/login_model.dart';
 import 'package:abu_zaid/network/end_point.dart';
 import 'package:abu_zaid/network/remote/dio_helper.dart';
-import 'package:abu_zaid/shared/cubit/state.dart';
+import 'package:abu_zaid/shared/login_cubit/state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:abu_zaid/shared/cubit2/state2.dart';
+import 'package:abu_zaid/shared/regist_cubit/state2.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
