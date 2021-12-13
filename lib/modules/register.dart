@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/regist_cubit/cubit2.dart';
 import 'package:abu_zaid/shared/regist_cubit/state2.dart';
+import 'package:abu_zaid/shared/styles/colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -154,7 +155,7 @@ class Register extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.blue[900],
+                              color: defaultColor,
                               borderRadius: BorderRadius.circular(30)),
                           width: 200,
                           height: 50,
@@ -195,10 +196,10 @@ class Register extends StatelessWidget {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'Login here!',
+                                  'LOGIN NOW !',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue[800],
+                                    color: defaultColor,
                                   ),
                                 ))
                           ],

@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-
+import 'package:abu_zaid/models/categories_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
 import 'package:abu_zaid/modules/categories.dart';
 import 'package:abu_zaid/modules/favoraite.dart';
@@ -53,6 +53,18 @@ class ShopCubit extends Cubit<ShopState> {
     }).catchError((onError) {
       print(onError);
       emit(ShopErrorState());
+    });
+  }
+
+  CategoriesModel? categoryModel;
+
+  void getCategoryData() {
+    DioHelper.getData(url: GET_GATEGORIES, token: token).then((value) {
+      categoryModel = CategoriesModel.fromJson(value.data);
+      emit(ShopCategorySuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ShopCategoryErrorState());
     });
   }
 }

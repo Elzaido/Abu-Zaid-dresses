@@ -6,6 +6,7 @@ import 'package:abu_zaid/network/local/cache_helper.dart';
 import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/login_cubit/cubit.dart';
 import 'package:abu_zaid/shared/login_cubit/state.dart';
+import 'package:abu_zaid/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,8 +54,9 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Center(
                             child: Image(
-                              image: AssetImage('assets/images/Welcome1.jpg'),
-                              height: 150,
+                              image: NetworkImage(
+                                  'https://media.istockphoto.com/vectors/data-protection-team-concept-vector-flat-cartoon-design-graphic-vector-id1159187703?k=6&m=1159187703&s=612x612&w=0&h=5IW05dFdXocn0L0926mSk9fYG2CZxDuwWt57WwIeiZk='),
+                              height: 170,
                               width: 250,
                             ),
                           ),
@@ -109,7 +111,6 @@ class LoginScreen extends StatelessWidget {
                               },
                               prefIcon: Icon(
                                 Icons.lock,
-                                color: Colors.grey,
                               ),
                               validator: (String? value) {
                                 if (value!.isEmpty) {
@@ -121,7 +122,6 @@ class LoginScreen extends StatelessWidget {
                                 icon: LoginCubit.get(context).isPass
                                     ? Icon(
                                         Icons.visibility_off,
-                                        color: Colors.grey,
                                       )
                                     : Icon(Icons.remove_red_eye,
                                         color: Colors.grey),
@@ -152,7 +152,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           Container(
                               decoration: BoxDecoration(
-                                  color: Colors.blue[900],
+                                  color: defaultColor,
                                   borderRadius: BorderRadius.circular(30)),
                               width: 200,
                               height: 50,
@@ -291,7 +291,7 @@ class LoginScreen extends StatelessWidget {
                                     'Sign Up',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.blue[700],
+                                      color: defaultColor,
                                     ),
                                   ))
                             ],

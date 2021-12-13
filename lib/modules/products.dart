@@ -1,3 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:abu_zaid/models/categories_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
 import 'package:abu_zaid/shared/shop_cubit/cubit3.dart';
 import 'package:abu_zaid/shared/shop_cubit/state3.dart';
@@ -14,16 +17,19 @@ class Products extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return ShopCubit.get(context).homeModel != null
-              ? productsBuilder(ShopCubit.get(context).homeModel)
+          return ShopCubit.get(context).homeModel != null &&
+                  ShopCubit.get(context).categoryModel != null
+              ? productsBuilder(ShopCubit.get(context).homeModel,
+                  ShopCubit.get(context).categoryModel)
               : Center(child: CircularProgressIndicator());
         });
   }
 
-  Widget productsBuilder(HomeModel? model) {
+  Widget productsBuilder(HomeModel? model, CategoriesModel? categoryModel) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CarouselSlider(
               items: model!.data!.banners
@@ -44,6 +50,38 @@ class Products extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
+          Text(
+            'Categories',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            // بعد ما حجمت الليست راح الإيرور
+            height: 100.0,
+            child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => CategoryItemBuilder(
+                    categoryModel!.data!.categoryDate[index]),
+                separatorBuilder: (context, index) => SizedBox(
+                      width: 5.0,
+                    ),
+                itemCount: categoryModel!.data!.categoryDate.length),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'New Products',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           GridView.count(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -51,12 +89,42 @@ class Products extends StatelessWidget {
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
               childAspectRatio: 1 / 1.75,
+              // list.generation(Length, itemBuilder// anonemus function that return the item).
               children: List.generate(
                 model.data!.products.length,
                 (index) => itemGridBuilder(model.data!.products[index]),
               )),
         ],
       ),
+    );
+  }
+
+  Widget CategoryItemBuilder(DataModel categoryDate) {
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        Image(
+          image: NetworkImage(categoryDate.image),
+          height: 100.0,
+          width: 100.0,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          width: 100.0,
+          color: Colors.black.withOpacity(0.8),
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Text(
+              categoryDate.name,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -79,7 +147,8 @@ class Products extends StatelessWidget {
                 Container(
                   color: Colors.red,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3.0),
                     child: Text(
                       'DISCOUNT',
                       style: TextStyle(
