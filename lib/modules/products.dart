@@ -2,6 +2,7 @@
 
 import 'package:abu_zaid/models/categories_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
+import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/shop_cubit/cubit3.dart';
 import 'package:abu_zaid/shared/shop_cubit/state3.dart';
 import 'package:abu_zaid/shared/styles/colors.dart';
@@ -20,12 +21,13 @@ class Products extends StatelessWidget {
           return ShopCubit.get(context).homeModel != null &&
                   ShopCubit.get(context).categoryModel != null
               ? productsBuilder(ShopCubit.get(context).homeModel,
-                  ShopCubit.get(context).categoryModel)
+                  ShopCubit.get(context).categoryModel, context)
               : Center(child: CircularProgressIndicator());
         });
   }
 
-  Widget productsBuilder(HomeModel? model, CategoriesModel? categoryModel) {
+  Widget productsBuilder(
+      HomeModel? model, CategoriesModel? categoryModel, context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -66,11 +68,11 @@ class Products extends StatelessWidget {
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => CategoryItemBuilder(
-                    categoryModel!.data!.categoryDate[index]),
+                    categoryModel!.data!.categoryData[index]),
                 separatorBuilder: (context, index) => SizedBox(
                       width: 5.0,
                     ),
-                itemCount: categoryModel!.data!.categoryDate.length),
+                itemCount: categoryModel!.data!.categoryData.length),
           ),
           SizedBox(
             height: 20,
@@ -92,7 +94,8 @@ class Products extends StatelessWidget {
               // list.generation(Length, itemBuilder// anonemus function that return the item).
               children: List.generate(
                 model.data!.products.length,
-                (index) => itemGridBuilder(model.data!.products[index]),
+                (index) =>
+                    itemGridBuilder(model.data!.products[index], context),
               )),
         ],
       ),
@@ -128,7 +131,7 @@ class Products extends StatelessWidget {
     );
   }
 
-  Widget itemGridBuilder(ProductsModel model) {
+  Widget itemGridBuilder(ProductsModel model, context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -205,10 +208,22 @@ class Products extends StatelessWidget {
                 ),
               Spacer(),
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.favorite_border,
-                    size: 12.0,
+                  onPressed: () {
+                    ShopCubit.get(context).changeFavorite(model.id);
+                    //  ShopCubit.get(context).changeFavoriteIcon(model.id);
+                  },
+                  icon: CircleAvatar(
+                    radius: 15.0,
+                    backgroundColor:
+                        // ShopCubit.get(context).favorites[model.id]
+                        //     ? defaultColor
+                        //     :
+                        Colors.grey,
+                    child: Icon(
+                      Icons.favorite_border,
+                      size: 12.0,
+                      color: Colors.white,
+                    ),
                   )),
             ],
           ),

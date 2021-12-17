@@ -154,13 +154,13 @@ class CategoryHomeModel {
 }
 
 class ProductsModel {
-  int? id;
+  late int id;
   dynamic price;
   dynamic oldPrice;
   dynamic discount;
   late String image;
   late String name;
-  bool? inFavorites;
+  late bool inFavorites;
   bool? inCart;
 
   ProductsModel.fromJson(Map<String, dynamic> json) {

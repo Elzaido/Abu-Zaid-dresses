@@ -10,14 +10,14 @@ class CategoriesModel {
 
 class CategoriesDataModel {
   int? currentPage;
-  List<DataModel> categoryDate = [];
+  List<DataModel> categoryData = [];
 
   CategoriesDataModel.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      categoryDate = <DataModel>[];
+      categoryData = <DataModel>[];
       json['data'].forEach((v) {
-        categoryDate.add(DataModel.fromJson(v));
+        categoryData.add(DataModel.fromJson(v));
       });
     }
   }

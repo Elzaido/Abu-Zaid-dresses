@@ -53,8 +53,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
             create: (context) => ShopCubit()
-              ..getData()
-              ..getCategoryData())
+              ..getData() // Products.
+              ..getCategoryData()
+              ..getFavoriteData())
       ],
       child: MaterialApp(
         // if we skip the on boarding before application will lead us to the login screen :

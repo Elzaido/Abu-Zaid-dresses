@@ -1,5 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 import 'package:abu_zaid/models/categories_model.dart';
+import 'package:abu_zaid/models/favorite_get_model.dart';
+import 'package:abu_zaid/models/favorite_post_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
 import 'package:abu_zaid/modules/categories.dart';
 import 'package:abu_zaid/modules/favoraite.dart';
@@ -20,6 +22,8 @@ class ShopCubit extends Cubit<ShopState> {
   static ShopCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
+  bool isFavorite = false;
+  late Map<int, bool> favorites;
 
   List<Widget> navPages = [
     Products(),
@@ -41,14 +45,17 @@ class ShopCubit extends Cubit<ShopState> {
   ];
 
   HomeModel? homeModel;
+  Map<int, bool> favorite = {};
 
   void getData() {
     emit(ShopLoadingState());
     DioHelper.getData(url: HOME, token: token).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-
-      print(homeModel!.data!.banners[0].image.toString());
-      print(homeModel!.status.toString());
+      print(token);
+      homeModel!.data!.products.forEach((element) {
+        favorite.addAll({element.id: element.inFavorites});
+        // print(favorite.toString());
+      });
       emit(ShopSuccessState());
     }).catchError((onError) {
       print(onError);
@@ -65,6 +72,44 @@ class ShopCubit extends Cubit<ShopState> {
     }).catchError((onError) {
       print(onError);
       emit(ShopCategoryErrorState());
+    });
+  }
+
+  late FavoritePostModel favoritePostModel;
+
+  void changeFavorite(int productId) {
+    emit(ShopChangeFavoriteState());
+    DioHelper.postData(
+            url: FAVORITE, data: {'product_id': productId}, token: token)
+        .then((value) {
+      favoritePostModel = FavoritePostModel.fromJson(value.data);
+      print(value.data);
+      if (!favoritePostModel.status) {
+        favorite[productId] = true;
+      } else {
+        getFavoriteData();
+      }
+      emit(ShopChangeFavoriteSuccessState());
+    }).catchError((error) {
+      emit(ShopChangeFavoriteErrorState());
+    });
+  }
+
+  // void changeFavoriteIcon(int id) {
+  //   isFavorite = !isFavorite;
+  //   favorites = {id: isFavorite};
+  // }
+
+  late FavoriteGetModel favoriteGetModel;
+
+  void getFavoriteData() {
+    DioHelper.getData(url: FAVORITE, token: token).then((value) {
+      favoriteGetModel = FavoriteGetModel.fromJson(value.data);
+      print(value.data);
+      emit(ShopFavoriteSuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ShopFavoriteErrorState());
     });
   }
 }
