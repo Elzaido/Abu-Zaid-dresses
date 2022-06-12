@@ -12,6 +12,7 @@ class ShopLayout extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {},
         builder: (context, state) {
+          // remmember >>> An object of Shopcubit class :-
           ShopCubit cubit = ShopCubit.get(context);
           return Scaffold(
               appBar: AppBar(

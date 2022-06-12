@@ -1,60 +1,3 @@
-// class HomeModel {
-//   bool? status;
-//   DataModel? data;
-
-//   HomeModel.fromJson(Map<String, dynamic> json) {
-//     status = json['status'];
-//     data = json['data'] != null ? DataHomeModel.fromJson(json['data']) : null;
-//   }
-// }
-
-// class DataModel {
-//   List<BannersModel> banners = [];
-//   List<ProductModel> products = [];
-
-//   DataModel.fromJson(Map<String, dynamic> json) {
-//     // bannars & products are lists ... so i have to add it like this :
-//     json['banners'].forEach((element) {
-//       banners.add(element);
-//     });
-//     json['products'].forEach((element) {
-//       products.add(element);
-//     });
-//   }
-// }
-
-// class BannersModel {
-//   int? id;
-//   String? image;
-
-//   BannersModel.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     image = json['image'];
-//   }
-// }
-
-// class ProductModel {
-//   int? id;
-//   dynamic price;
-//   dynamic oldPrice;
-//   dynamic disCount;
-//   String? name;
-//   String? image;
-//   bool? inFavorite;
-//   bool? inCart;
-
-//   ProductModel.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     price = json['price'];
-//     oldPrice = json['old_price'];
-//     disCount = json['discount'];
-//     name = json['name'];
-//     image = json['image'];
-//     inFavorite = json['in_favorites'];
-//     inCart = json['in_cart'];
-//   }
-// }
-
 class HomeModel {
   bool? status;
   DataHomeModel? data;
@@ -133,26 +76,6 @@ class BannersModel {
   }
 }
 
-class CategoryHomeModel {
-  int? id;
-  String? image;
-  String? name;
-
-  CategoryHomeModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    image = json['image'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['image'] = image;
-    data['name'] = name;
-    return data;
-  }
-}
-
 class ProductsModel {
   late int id;
   dynamic price;
@@ -184,6 +107,26 @@ class ProductsModel {
     data['name'] = name;
     data['in_favorites'] = inFavorites;
     data['in_cart'] = inCart;
+    return data;
+  }
+}
+
+class CategoryHomeModel {
+  int? id;
+  String? image;
+  String? name;
+
+  CategoryHomeModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    image = json['image'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['image'] = image;
+    data['name'] = name;
     return data;
   }
 }

@@ -1,9 +1,10 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:abu_zaid/modules/register.dart';
 import 'package:abu_zaid/layout/shop_layout.dart';
 import 'package:abu_zaid/network/local/cache_helper.dart';
 import 'package:abu_zaid/shared/component/component.dart';
+import 'package:abu_zaid/shared/constant/constant.dart';
 import 'package:abu_zaid/shared/login_cubit/cubit.dart';
 import 'package:abu_zaid/shared/login_cubit/state.dart';
 import 'package:abu_zaid/shared/styles/colors.dart';
@@ -25,6 +26,8 @@ class LoginScreen extends StatelessWidget {
             CacheHelper.saveDate(
                     key: 'token', value: state.loginModel.data!.token)
                 .then((value) {
+              token = state.loginModel.data!.token;
+
               navigateAndFinish(context: context, widget: ShopLayout());
             });
             // defaultToast(
@@ -288,7 +291,7 @@ class LoginScreen extends StatelessWidget {
                                             builder: (context) => Register()));
                                   },
                                   child: Text(
-                                    'Sign Up',
+                                    'SIGN UP',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: defaultColor,

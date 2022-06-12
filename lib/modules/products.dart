@@ -1,8 +1,7 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
 
 import 'package:abu_zaid/models/categories_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
-import 'package:abu_zaid/shared/component/component.dart';
 import 'package:abu_zaid/shared/shop_cubit/cubit3.dart';
 import 'package:abu_zaid/shared/shop_cubit/state3.dart';
 import 'package:abu_zaid/shared/styles/colors.dart';
@@ -131,6 +130,7 @@ class Products extends StatelessWidget {
     );
   }
 
+// item that I want :
   Widget itemGridBuilder(ProductsModel model, context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

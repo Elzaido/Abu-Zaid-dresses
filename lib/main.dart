@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print, use_key_in_widget_constructors, unnecessary_null_comparison
-
 import 'package:abu_zaid/modules/login.dart';
 import 'package:abu_zaid/layout/shop_layout.dart';
 import 'package:abu_zaid/network/local/cache_helper.dart';
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
   final Widget startWidget;
   @override
   Widget build(BuildContext context) {
-    // if there is a cubit that used in th whole app ... i need to provide it here :
+    // if there is a cubit that used in the whole app ... i need to provide it here :
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -55,7 +54,8 @@ class MyApp extends StatelessWidget {
             create: (context) => ShopCubit()
               ..getData() // Products.
               ..getCategoryData()
-              ..getFavoriteData())
+              ..getFavoriteData()
+              ..getUserData())
       ],
       child: MaterialApp(
         // if we skip the on boarding before application will lead us to the login screen :

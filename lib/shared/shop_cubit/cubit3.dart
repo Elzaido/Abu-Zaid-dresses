@@ -3,6 +3,7 @@ import 'package:abu_zaid/models/categories_model.dart';
 import 'package:abu_zaid/models/favorite_get_model.dart';
 import 'package:abu_zaid/models/favorite_post_model.dart';
 import 'package:abu_zaid/models/home_model.dart';
+import 'package:abu_zaid/models/login_model.dart';
 import 'package:abu_zaid/modules/categories.dart';
 import 'package:abu_zaid/modules/favoraite.dart';
 import 'package:abu_zaid/modules/products.dart';
@@ -23,7 +24,7 @@ class ShopCubit extends Cubit<ShopState> {
 
   int currentIndex = 0;
   bool isFavorite = false;
-  late Map<int, bool> favorites;
+  // late Map<int, bool> favorites;
 
   List<Widget> navPages = [
     Products(),
@@ -41,7 +42,7 @@ class ShopCubit extends Cubit<ShopState> {
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Products'),
     BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Category'),
     BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Stettings'),
+    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
   ];
 
   HomeModel? homeModel;
@@ -75,6 +76,19 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
+  late FavoriteGetModel favoriteGetModel;
+
+  void getFavoriteData() {
+    DioHelper.getData(url: FAVORITE, token: token).then((value) {
+      favoriteGetModel = FavoriteGetModel.fromJson(value.data);
+      print(value.data);
+      emit(ShopFavoriteSuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ShopFavoriteErrorState());
+    });
+  }
+
   late FavoritePostModel favoritePostModel;
 
   void changeFavorite(int productId) {
@@ -100,16 +114,37 @@ class ShopCubit extends Cubit<ShopState> {
   //   favorites = {id: isFavorite};
   // }
 
-  late FavoriteGetModel favoriteGetModel;
+  late ShopLoginModel userData;
 
-  void getFavoriteData() {
-    DioHelper.getData(url: FAVORITE, token: token).then((value) {
-      favoriteGetModel = FavoriteGetModel.fromJson(value.data);
-      print(value.data);
-      emit(ShopFavoriteSuccessState());
+  void getUserData() {
+    emit(ShopLoadingUserDataState());
+    DioHelper.getData(url: PROFILE, token: token).then((value) {
+      userData = ShopLoginModel.fromJson(value.data);
+      print(userData.data!.name);
+      emit(ShopSuccessUserDataState());
     }).catchError((onError) {
       print(onError);
-      emit(ShopFavoriteErrorState());
+      emit(ShopErrorUserDataState());
+    });
+  }
+
+  void updateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    emit(ShopLoadingUpdateUserDataState());
+    DioHelper.putData(url: UPDATE_PROFILE, token: token, data: {
+      'name': name,
+      'email': email,
+      'phone': phone,
+    }).then((value) {
+      userData = ShopLoginModel.fromJson(value.data);
+      print(userData.data!.name);
+      emit(ShopSuccessUpdateUserDataState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ShopErrorUpdateUserDataState());
     });
   }
 }
