@@ -51,6 +51,7 @@ class ShopCubit extends Cubit<ShopState> {
   void getData() {
     emit(ShopLoadingState());
     DioHelper.getData(url: HOME, token: token).then((value) {
+      // fill the data from dioHelper into the homeModel :
       homeModel = HomeModel.fromJson(value.data);
       print(token);
       homeModel!.data!.products.forEach((element) {
